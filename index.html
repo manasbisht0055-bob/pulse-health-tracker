@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pulse — Personal Health Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="brand"><span class="brand-mark">♥</span> Pulse<span style="color:#16a085">.</span></div>
+  <div class="nav-label">WORKSPACE</div>
+  <nav>
+    <button class="active" data-page="dashboard"><span class="nav-icon">▦</span>Dashboard</button>
+    <button data-page="activity"><span class="nav-icon">👟</span>Activity</button>
+    <button data-page="water"><span class="nav-icon">💧</span>Water</button>
+    <button data-page="sleep"><span class="nav-icon">🌙</span>Sleep</button>
+    <button data-page="food"><span class="nav-icon">🥗</span>Nutrition</button>
+    <button data-page="bmi"><span class="nav-icon">⚖️</span>BMI calculator</button>
+    <button data-page="history"><span class="nav-icon">📊</span>History</button>
+    <button data-page="profile"><span class="nav-icon">👤</span>My profile</button>
+  </nav>
+  <div class="sidebar-note"><b>Small steps matter.</b><br>Build healthy habits one day at a time. Your entries stay on this device.</div>
+</aside>
+<main>
+  <header class="topbar"><div><div class="eyebrow">YOUR PERSONAL WELLNESS SPACE</div><h1 id="pageTitle">Good day! 👋</h1><div class="eyebrow">Here’s your health overview.</div></div><div class="today" id="todayLabel"></div></header>
+
+  <section class="page active" id="dashboard">
+    <div class="grid">
+      <div class="card"><div class="metric-top">Steps today <span class="metric-icon green">👟</span></div><div class="metric-value" id="dashSteps">0</div><div class="metric-sub" id="stepsSub">Goal: 8,000 steps</div><div class="progress"><span id="stepsProgress"></span></div></div>
+      <div class="card"><div class="metric-top">Water today <span class="metric-icon blue">💧</span></div><div class="metric-value" id="dashWater">0 ml</div><div class="metric-sub" id="waterSub">Goal: 2,000 ml</div><div class="progress"><span id="waterProgress" style="background:#4776e6"></span></div></div>
+      <div class="card"><div class="metric-top">Sleep last night <span class="metric-icon purple">🌙</span></div><div class="metric-value" id="dashSleep">0h</div><div class="metric-sub">Suggested target: 8 hours</div><div class="progress"><span id="sleepProgress" style="background:#8b6bd6"></span></div></div>
+      <div class="card"><div class="metric-top">Calories logged <span class="metric-icon orange">🥗</span></div><div class="metric-value" id="dashCalories">0</div><div class="metric-sub">kcal recorded today</div><div class="progress"><span id="calProgress" style="background:#f39c4a"></span></div></div>
+    </div>
+    <div class="section-head"><div><h2>Weekly activity</h2><p>Your step count over the last 7 days</p></div><span class="pill">Last 7 days</span></div>
+    <div class="two-col">
+      <div class="card chart-card"><div class="metric-top">Daily steps <span>📈</span></div><div class="bars" id="weeklyBars"></div><div class="legend">Daily step entries are saved locally in your browser.</div></div>
+      <div class="card"><div class="metric-top">Quick actions <span>＋</span></div><div class="quick-grid" style="grid-template-columns:repeat(2,1fr);margin-top:14px">
+        <button class="quick" data-go="activity">👟<b>Add steps</b><small>Log movement</small></button>
+        <button class="quick" data-go="water">💧<b>Drink water</b><small>Track hydration</small></button>
+        <button class="quick" data-go="sleep">🌙<b>Log sleep</b><small>Record rest</small></button>
+        <button class="quick" data-go="food">🥗<b>Add food</b><small>Log calories</small></button>
+      </div></div>
+    </div>
+    <div class="section-head"><div><h2>Today’s wellness checklist</h2><p>Simple habits to help you stay on track</p></div></div>
+    <div class="card" id="checklist"></div>
+  </section>
+
+  <section class="page" id="activity">
+    <div class="section-head"><div><h2>Activity tracker</h2><p>Record steps and exercise minutes for today.</p></div></div>
+    <div class="two-col">
+      <div class="card"><div class="form-grid">
+        <div class="field"><label for="stepsInput">Steps taken</label><input id="stepsInput" type="number" min="0" placeholder="e.g. 4500"></div>
+        <div class="field"><label for="exerciseInput">Exercise minutes</label><input id="exerciseInput" type="number" min="0" placeholder="e.g. 30"></div>
+      </div><div class="btn-row"><button class="btn" id="saveActivity">Save activity</button><button class="btn secondary" id="addSteps">+ 500 steps</button></div><div class="result" id="activityResult">Your daily activity will appear here.</div></div>
+      <div class="card"><div class="metric-top">Daily step goal <span class="pill">8,000 steps</span></div><div class="metric-value" id="activityTotal">0</div><div class="metric-sub">steps recorded today</div><div class="progress"><span id="activityProgress"></span></div><p class="notice">Step counts are entered manually; this website does not connect to a phone sensor or smartwatch.</p></div>
+    </div>
+    <div class="section-head"><div><h2>Recent activity</h2><p>Your saved daily entries</p></div></div><div class="card" id="activityList"></div>
+  </section>
+
+  <section class="page" id="water">
+    <div class="section-head"><div><h2>Water tracker</h2><p>Keep a simple record of your daily water intake.</p></div></div>
+    <div class="two-col">
+      <div class="card"><div class="metric-top">Water consumed today <span class="metric-icon blue">💧</span></div><div class="metric-value" id="waterTotal">0 ml</div><div class="metric-sub" id="waterRemaining">2,000 ml goal</div><div class="progress"><span id="waterPageProgress" style="background:#4776e6"></span></div><div class="btn-row"><button class="btn" data-water="250">+ 250 ml</button><button class="btn secondary" data-water="500">+ 500 ml</button><button class="btn secondary" data-water="750">+ 750 ml</button></div></div>
+      <div class="card"><h3 style="margin-top:0">Custom amount</h3><div class="field"><label for="waterInput">Amount in millilitres (ml)</label><input id="waterInput" type="number" min="1" placeholder="e.g. 300"></div><div class="btn-row"><button class="btn" id="addWater">Add water</button></div><p class="notice">The water goal is an example target. Individual hydration needs vary.</p></div>
+    </div>
+    <div class="section-head"><div><h2>Today's water log</h2><p>Each drink you add is listed below.</p></div></div><div class="card" id="waterList"></div>
+  </section>
+
+  <section class="page" id="sleep">
+    <div class="section-head"><div><h2>Sleep tracker</h2><p>Record your sleep duration for each night.</p></div></div>
+    <div class="two-col">
+      <div class="card"><div class="form-grid"><div class="field"><label for="bedTime">Bedtime</label><input id="bedTime" type="time" value="22:30"></div><div class="field"><label for="wakeTime">Wake-up time</label><input id="wakeTime" type="time" value="06:30"></div></div><div class="btn-row"><button class="btn" id="saveSleep">Save sleep record</button></div><div class="result" id="sleepResult">Enter your bedtime and wake-up time.</div></div>
+      <div class="card"><div class="metric-top">Last recorded sleep <span class="metric-icon purple">🌙</span></div><div class="metric-value" id="sleepTotal">0h</div><div class="metric-sub">Suggested target: 7–9 hours for most adults</div><div class="progress"><span id="sleepPageProgress" style="background:#8b6bd6"></span></div><p class="notice">This is a manual sleep log, not a medical sleep assessment.</p></div>
+    </div>
+    <div class="section-head"><div><h2>Sleep history</h2><p>Your recent sleep records</p></div></div><div class="card" id="sleepList"></div>
+  </section>
+
+  <section class="page" id="food">
+    <div class="section-head"><div><h2>Nutrition tracker</h2><p>Log meals and their estimated calories.</p></div></div>
+    <div class="two-col">
+      <div class="card"><div class="form-grid"><div class="field"><label for="foodName">Food / meal name</label><input id="foodName" placeholder="e.g. Vegetable sandwich"></div><div class="field"><label for="foodCalories">Calories (kcal)</label><input id="foodCalories" type="number" min="0" placeholder="e.g. 280"></div><div class="field"><label for="mealType">Meal type</label><select id="mealType"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option></select></div></div><div class="btn-row"><button class="btn" id="saveFood">Add food entry</button></div></div>
+      <div class="card"><div class="metric-top">Calories today <span class="metric-icon orange">🥗</span></div><div class="metric-value" id="foodTotal">0 kcal</div><div class="metric-sub">Total estimated calories logged today</div><div class="progress"><span id="foodProgress" style="background:#f39c4a"></span></div><p class="notice">Calorie values are estimates entered by you, not nutritional advice.</p></div>
+    </div>
+    <div class="section-head"><div><h2>Today's food diary</h2><p>Meals and snacks you have recorded</p></div></div><div class="card" id="foodList"></div>
+  </section>
+
+  <section class="page" id="bmi">
+    <div class="section-head"><div><h2>BMI calculator</h2><p>Calculate Body Mass Index using height and weight.</p></div></div>
+    <div class="two-col">
+      <div class="card"><div class="form-grid"><div class="field"><label for="heightInput">Height (cm)</label><input id="heightInput" type="number" min="1" placeholder="e.g. 170"></div><div class="field"><label for="weightInput">Weight (kg)</label><input id="weightInput" type="number" min="1" step=".1" placeholder="e.g. 65"></div></div><div class="btn-row"><button class="btn" id="calculateBmi">Calculate BMI</button><button class="btn secondary" id="useProfile">Use profile details</button></div><div id="bmiResult" class="result" style="display:none"></div></div>
+      <div class="card"><h3 style="margin-top:0">BMI reference (adults)</h3><div class="list">
+        <div class="list-item"><strong>Below 18.5</strong><span class="pill">Underweight</span></div><div class="list-item"><strong>18.5 – 24.9</strong><span class="pill">Healthy range</span></div><div class="list-item"><strong>25 – 29.9</strong><span class="pill">Overweight</span></div><div class="list-item"><strong>30 or above</strong><span class="pill">Obesity range</span></div>
+      </div><p class="notice">BMI is a screening measure, not a diagnosis. It may not suit children, pregnant people, athletes, or every body type.</p></div>
+    </div>
+  </section>
+
+  <section class="page" id="history">
+    <div class="section-head"><div><h2>Health history</h2><p>Review your saved entries from the last few days.</p></div><button class="btn secondary" id="exportData">Export my data</button></div>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card"><div class="metric-top">Activity days</div><div class="metric-value" id="historyActivity">0</div><div class="metric-sub">days with step records</div></div>
+      <div class="card"><div class="metric-top">Water entries</div><div class="metric-value" id="historyWater">0</div><div class="metric-sub">drinks recorded</div></div>
+      <div class="card"><div class="metric-top">Sleep records</div><div class="metric-value" id="historySleep">0</div><div class="metric-sub">nights recorded</div></div>
+    </div>
+    <div class="section-head"><div><h2>Daily summary</h2><p>Recent dates and totals</p></div></div><div class="card" id="historyList"></div>
+    <div class="section-head"><div><h2>Data controls</h2><p>Your information is stored only in this browser's local storage.</p></div></div><div class="card"><p style="margin-top:0">You can export a backup or clear the information saved by this website on this device.</p><button class="btn danger" id="clearData">Clear all local data</button><p class="notice">Clearing browser data, using a different browser/device, or private browsing may remove or hide your entries. Export a backup before clearing.</p></div>
+  </section>
+
+  <section class="page" id="profile">
+    <div class="section-head"><div><h2>My profile</h2><p>Keep your basic details for your own reference.</p></div></div>
+    <div class="card">
+      <div class="profile-head"><div class="avatar">👤</div><div><b id="profileNameDisplay">Your profile</b><div class="eyebrow">Personal details saved on this device</div></div></div>
+      <div class="form-grid" style="margin-top:22px">
+        <div class="field"><label for="profileName">Name</label><input id="profileName" placeholder="Your name"></div>
+        <div class="field"><label for="profileAge">Age</label><input id="profileAge" type="number" min="1" max="120" placeholder="e.g. 20"></div>
+        <div class="field"><label for="profileHeight">Height (cm)</label><input id="profileHeight" type="number" min="1" placeholder="e.g. 170"></div>
+        <div class="field"><label for="profileWeight">Weight (kg)</label><input id="profileWeight" type="number" min="1" step=".1" placeholder="e.g. 65"></div>
+      </div><div class="btn-row"><button class="btn" id="saveProfile">Save profile</button></div><div class="result">Your profile is stored in localStorage. No account or internet connection is needed.</div>
+    </div>
+  </section>
+  <div class="footer">PULSE HEALTH TRACKER · A FRONT-END JAVASCRIPT PROJECT · YOUR DATA STAYS IN THIS BROWSER</div>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
